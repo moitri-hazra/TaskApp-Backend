@@ -29,16 +29,28 @@ module.exports.saveTask = async (req, res) => {
 };
 
 module.exports.updateTask = async (req, res) => {
-    const { _id, Title, Description, Complete } = req.body;
+    const { id } = req.params; 
+    const { Title, Description, Complete } = req.body;
+
     try {
-        const updatedTask = await TaskerModel.findByIdAndUpdate(_id, { Title, Description, Complete }, { new: true });
+        const updatedTask = await TaskerModel.findByIdAndUpdate(
+            id, 
+            { Title, Description, Complete },
+            { new: true } 
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ error: 'Task not found' }); 
+        }
+
         console.log("Updated task:", updatedTask);
-        res.send("Updated Successfully");
+        res.status(200).send("Updated Successfully");
     } catch (error) {
         console.error("Error updating task:", error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 module.exports.deleteTask = async (req, res) => {
     const { id } = req.params; 
