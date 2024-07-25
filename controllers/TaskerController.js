@@ -41,15 +41,21 @@ module.exports.updateTask = async (req, res) => {
 };
 
 module.exports.deleteTask = async (req, res) => {
-    const { _id } = req.body;
+    const { _id } = req.params; 
     try {
-        await TaskerModel.findByIdAndDelete(_id);
-        res.send("Deleted Successfully");
+        const result = await TaskerModel.findByIdAndDelete(_id);
+
+        if (!result) {
+            return res.status(404).json({ error: 'Task not found' }); // Handle case where task does not exist
+        }
+
+        res.status(200).send("Deleted Successfully");
     } catch (error) {
         console.error("Error deleting task:", error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 module.exports.singleTask = async (req, res) => {
     const { id } = req.params;
