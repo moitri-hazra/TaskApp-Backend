@@ -3,7 +3,7 @@ const { getTask, saveTask, updateTask, deleteTask, singleTask } = require('../co
 
 const router = Router();
 
-router.get('/', getTask)
+router.get('/tasks', getTask)
 router.get('/task/:id', singleTask);
 router.post('/save', saveTask)
 router.post('/update', updateTask)
