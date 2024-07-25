@@ -11,13 +11,14 @@ module.exports.getTask = async (req, res) => {
 };
 
 module.exports.saveTask = async (req, res) => {
-    const { Title, Description } = req.body;
+    const { Title, Description, Responsible, Priority } = req.body;
 
     try {
         const newTask = await TaskerModel.create({
             Title,
             Description,
-            Complete: false // Assuming new tasks are not complete by default
+            Responsible,
+            Priority: Priority || ['low'], 
         });
 
         console.log("Added new task:", newTask);
@@ -30,12 +31,12 @@ module.exports.saveTask = async (req, res) => {
 
 module.exports.updateTask = async (req, res) => {
     const { id } = req.params; 
-    const { Title, Description, Complete } = req.body;
+    const { Title, Description, Responsible, Priority } = req.body;
 
     try {
         const updatedTask = await TaskerModel.findByIdAndUpdate(
             id, 
-            { Title, Description, Complete },
+            { Title, Description, Responsible, Priority },
             { new: true } 
         );
 
@@ -50,7 +51,6 @@ module.exports.updateTask = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-
 
 module.exports.deleteTask = async (req, res) => {
     const { id } = req.params; 
@@ -67,7 +67,6 @@ module.exports.deleteTask = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-
 
 module.exports.singleTask = async (req, res) => {
     const { id } = req.params;
