@@ -41,9 +41,9 @@ module.exports.updateTask = async (req, res) => {
 };
 
 module.exports.deleteTask = async (req, res) => {
-    const { _id } = req.params; 
+    const { id } = req.params; 
     try {
-        const result = await TaskerModel.findByIdAndDelete(_id);
+        const result = await TaskerModel.findByIdAndDelete(id);
 
         if (!result) {
             return res.status(404).json({ error: 'Task not found' }); // Handle case where task does not exist
