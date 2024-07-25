@@ -6,7 +6,7 @@ const router = Router();
 router.get('/tasks', getTask)
 router.get('/task/:id', singleTask);
 router.post('/save', saveTask)
-router.post('/update', updateTask)
-router.post('/delete/:id', deleteTask)
+router.put('/update', updateTask)
+router.delete('/delete/:id', deleteTask)
 
 module.exports = router;
