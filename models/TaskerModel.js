@@ -9,10 +9,15 @@ const taskerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    Complete: {
-        type: Boolean,
-        default: false
-    }
+    Responsible: {
+        type: String,
+        required: true
+    },
+     Priority: {
+    type: [String],
+    enum: ['low', 'medium', 'high'],
+    default: ['low'],
+  }
 });
 
 module.exports = mongoose.model('Tasker', taskerSchema);
