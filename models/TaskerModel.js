@@ -17,7 +17,12 @@ const taskerSchema = new mongoose.Schema({
     type: [String],
     enum: ['low', 'medium', 'high'],
     default: ['low'],
-  }
+    
+  },
+  Complete:{
+    type: Boolean,
+    required: true,
+}
 });
 
 module.exports = mongoose.model('Tasker', taskerSchema);
